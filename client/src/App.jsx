@@ -4,15 +4,15 @@ import axios from "axios";
 function App() {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
-
   const [editId, setEditId] = useState(null);
   const [editText, setEditText] = useState("");
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/tasks");
-
+        const response = await axios.get(`${API_URL}/tasks`);
         setTasks(response.data);
       } catch (err) {
         console.log(err);
@@ -20,7 +20,7 @@ function App() {
     };
 
     fetchTasks();
-  }, []);
+  }, [API_URL]);
 
   const addTask = async () => {
     if (task.trim() === "") return;
@@ -31,11 +31,11 @@ function App() {
     };
 
     try {
-      await axios.post("http://localhost:5000/tasks", newTask);
+      await axios.post(`${API_URL}/tasks`, newTask);
 
-      const response = await axios.get("http://localhost:5000/tasks");
-
+      const response = await axios.get(`${API_URL}/tasks`);
       setTasks(response.data);
+
       setTask("");
     } catch (err) {
       console.log(err);
@@ -44,10 +44,9 @@ function App() {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/tasks/${id}`);
+      await axios.delete(`${API_URL}/tasks/${id}`);
 
-      const response = await axios.get("http://localhost:5000/tasks");
-
+      const response = await axios.get(`${API_URL}/tasks`);
       setTasks(response.data);
     } catch (err) {
       console.log(err);
@@ -56,13 +55,12 @@ function App() {
 
   const toggleComplete = async (task) => {
     try {
-      await axios.put(`http://localhost:5000/tasks/${task._id}`, {
+      await axios.put(`${API_URL}/tasks/${task._id}`, {
         text: task.text,
         completed: !task.completed,
       });
 
-      const response = await axios.get("http://localhost:5000/tasks");
-
+      const response = await axios.get(`${API_URL}/tasks`);
       setTasks(response.data);
     } catch (err) {
       console.log(err);
@@ -76,13 +74,12 @@ function App() {
 
   const saveEdit = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/tasks/${id}`, {
+      await axios.put(`${API_URL}/tasks/${id}`, {
         text: editText,
         completed: false,
       });
 
-      const response = await axios.get("http://localhost:5000/tasks");
-
+      const response = await axios.get(`${API_URL}/tasks`);
       setTasks(response.data);
 
       setEditId(null);
