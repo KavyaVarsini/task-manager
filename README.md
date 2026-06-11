@@ -28,10 +28,10 @@ A full-stack Task Management application built using React, Node.js, Express, an
 ## Live Demo
 
 Frontend:
-PASTE_VERCEL_LINK_HERE
+[PASTE_VERCEL_LINK_HERE](https://task-manager-npj6-kfcvpbu34-kavyaa-s-projects.vercel.app)
 
 Backend:
-PASTE_RENDER_LINK_HERE
+[PASTE_RENDER_LINK_HERE](https://task-manager-backend-2jsg.onrender.com)
 
 ## Installation
 
